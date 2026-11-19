@@ -4,12 +4,9 @@
 
 const express = require('express');
 const app = express();
+const greeting = process.env.GREETING || 'Hello from your deployed app on Render!';
 
 app.use(express.json());
-
-app.get('/api/message', (req, res) => {
-  res.json({ message: 'Hello from your first Express API!' });
-});
 
 app.post('/api/notes', (req, res) => {
   const { name, note } = req.body;
@@ -28,6 +25,10 @@ app.post('/api/notes', (req, res) => {
 
 app.get('/', (req, res) => {
   res.send('Application is running!');
+});
+
+app.get('/api/message', (req, res) => {
+  res.json({ message: greeting });
 });
 
 const PORT = process.env.PORT || 3000;
